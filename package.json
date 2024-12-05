@@ -1,0 +1,12 @@
+{
+  "name": "Playwright-test-task",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Aliaksei Hryhoryeu <aliaksei.hryhoryeu.1@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.10.1"
+  },
+  "scripts": {}
+}
