@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test'
 test('1. Google Search', async ({ page }) => {
 	// 1. Тест должен переходить на google.com
 	await page.goto('https://google.com/')
-	page.waitForLoadState()
+	await page.waitForLoadState('networkidle')
 
 	// 2. Тест должен вводить в поле поиска "Автотесты"
 	const searchInput = page.locator('textarea[name="q"]')
@@ -15,7 +15,7 @@ test('1. Google Search', async ({ page }) => {
 	await searchBtn.first().click()
 
 	// 4. Проверка, что произошел переход на страницу результатов
-	await page.waitForLoadState()
+	await page.waitForLoadState('networkidle')
 	expect(page.url()).toContain('search')
 
 	// 5. Проверка наличия логотипа
@@ -36,6 +36,7 @@ test('1. Google Search', async ({ page }) => {
 	expect(pagesCount).toBeGreaterThan(0)
 
 	// 8. Тест должен проверять наличие кнопки "Очистить"
+	// локатор ClearBtn не совсем стабилен т.к. jsname скорее всего может поменяться
 	const clearBtn = page.locator(
 		'div[jscontroller][jsname="RP0xob"] div[role="button"]:has(span):has(path)'
 	)
@@ -43,5 +44,5 @@ test('1. Google Search', async ({ page }) => {
 
 	// 9. Тест должен нажимать кнопку "Очистить" и проверять очищение строки поиска
 	await clearBtn.click()
-	await expect(searchInput).toBeVisible()
+	await expect(searchInput).toHaveValue('')
 })
